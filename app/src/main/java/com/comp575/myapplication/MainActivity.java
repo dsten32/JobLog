@@ -2,24 +2,33 @@ package com.comp575.myapplication;
 
 import android.os.Parcelable;
 import androidx.appcompat.app.AppCompatActivity;
+
+
 import androidx.lifecycle.Observer;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
+    //contacts variables
     private ArrayList<Contact> contacts = new ArrayList<>();
     private ArrayAdapter<Contact> adapter;
     private ListView contactsListView;
     private ContactRepository contactRepository;
+
+    //search variables
+    private SearchView editSearch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +38,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //adapter setup
         if(findViewById(R.id.contactsListView)!=null) {
             contactsListView = findViewById(R.id.contactsListView);
-
             contactsListView.setAdapter(adapter);
             contactsListView.setOnItemClickListener(this);
 
+        }
+
+        // Locate the EditText in listview_main.xml, or not id portrait view
+        editSearch = findViewById(R.id.search);
+        if(editSearch != null) {
+            editSearch.setOnQueryTextListener(this);
         }
 
         if(savedInstanceState != null){
@@ -127,5 +141,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toast.makeText(parent.getContext(), "Clicked " + contact,
                 Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        Filter filter = adapter.getFilter();
+        filter.filter(text);
+        return false;
     }
 }
