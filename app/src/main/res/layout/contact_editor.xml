@@ -98,5 +98,14 @@
         android:layout_toRightOf="@+id/savebutton"
         android:onClick="deleteContact"
         android:text="DELETE CONTACT" />
-
+    <Button
+        android:id="@+id/listbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/delbutton"
+        android:onClick="flipView"
+        android:text="View Contacts"
+        android:layout_toEndOf="@+id/delbutton" />
 </RelativeLayout>

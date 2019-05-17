@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             contactsListView.setOnItemClickListener(this);
 
         }
+
+
 
         // Locate the EditText in listview_main.xml, or not id portrait view
         editSearch = findViewById(R.id.search);
@@ -154,5 +157,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Filter filter = adapter.getFilter();
         filter.filter(text);
         return false;
+    }
+
+    public void flipView(View view) {
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.flipper);
+
+        // you can switch between next and previous layout and display it
+        viewFlipper.showNext();
+//        viewFlipper.showPrevious();
+    }
+
+    public void flipBack(View view) {
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.flipper);
+
+        // you can switch between next and previous layout and display it
+//        viewFlipper.showNext();
+        viewFlipper.showPrevious();
     }
 }

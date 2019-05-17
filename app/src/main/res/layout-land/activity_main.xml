@@ -4,27 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <include
+        layout="@layout/contact_list"
         android:layout_weight="1"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
-
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false">
-
-            <!--<requestFocus />-->
-        </SearchView>
-
-        <ListView
-            android:id="@+id/contactsListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        />
 
     <include
         layout="@layout/contact_editor"
