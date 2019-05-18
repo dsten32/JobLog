@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.SearchView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -172,17 +174,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void flipView(View view) {
         ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.flipper);
-
+        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
+        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.slide_out_right);
+        viewFlipper.setInAnimation(in);
+        viewFlipper.setOutAnimation(out);
         // you can switch between next and previous layout and display it
         viewFlipper.showNext();
-//        viewFlipper.showPrevious();
     }
 
-    public void flipBack(View view) {
-        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.flipper);
 
-        // you can switch between next and previous layout and display it
-//        viewFlipper.showNext();
-        viewFlipper.showPrevious();
+    public void selectImage(View view) {
     }
+
 }
