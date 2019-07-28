@@ -10,13 +10,13 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface ContactDao {
+public interface JobDao {
     @Insert
-    void insert(Contact contact);
+    void insert(Job job);
     @Update
-    void update(Contact contact);
+    void update(Job job);
     @Delete
-    void delete(Contact contact);
-    @Query("SELECT * from Contact ORDER BY name")
-    LiveData<List<Contact>> getAllContacts();
+    void delete(Job job);
+    @Query("SELECT * from Job ORDER BY client")
+    LiveData<List<Job>> getAllJobs();
 }
