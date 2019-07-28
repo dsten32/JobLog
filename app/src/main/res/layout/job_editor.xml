@@ -20,33 +20,33 @@
         android:background="@android:color/holo_blue_dark"
         android:gravity="center"
         android:padding="2dp"
-        android:text="Edit Contact"
+        android:text="Edit Job"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/client"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_alignLeft="@id/email"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Firstname Lastname"
+        android:hint="Client Name"
         android:inputType="textPersonName" />
 
     <ImageView
         android:id="@+id/email_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
+        android:layout_below="@id/client"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         app:srcCompat="@android:drawable/sym_action_email" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/descr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/email_icon"
@@ -54,8 +54,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/email_icon"
         android:ems="10"
-        android:hint="email address"
-        android:inputType="textEmailAddress" />
+        android:hint="Job Description"
+        android:inputType="text" />
 
     <ImageView
         android:id="@+id/phone_icon"
@@ -68,7 +68,7 @@
         app:srcCompat="@android:drawable/sym_action_call" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/orderNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/phone_icon"
@@ -76,8 +76,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/phone_icon"
         android:ems="10"
-        android:hint="mobile number"
-        android:inputType="phone" />
+        android:hint="order number"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/savebutton"
@@ -86,8 +86,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_alignParentLeft="true"
-        android:onClick="saveContact"
-        android:text="SAVE CONTACT" />
+        android:onClick="saveJob"
+        android:text="SAVE JOB" />
 
     <Button
         android:id="@+id/delbutton"
@@ -96,7 +96,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/savebutton"
-        android:onClick="deleteContact"
-        android:text="DELETE CONTACT" />
+        android:onClick="deleteJob"
+        android:text="DELETE Job" />
 
 </RelativeLayout>
