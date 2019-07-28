@@ -16,48 +16,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    private ArrayList<Contact> contacts = new ArrayList<>();
-    private ArrayAdapter<Contact> adapter;
-    private ListView contactsListView;
-    private ContactRepository contactRepository;
+    private ArrayList<Job> jobs = new ArrayList<>();
+    private ArrayAdapter<Job> adapter;
+    private ListView jobsListView;
+    private JobRepository jobRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, jobs);
         //adapter setup
-        if(findViewById(R.id.contactsListView)!=null) {
-            contactsListView = findViewById(R.id.contactsListView);
+        if(findViewById(R.id.jobsListView)!=null) {
+            jobsListView = findViewById(R.id.jobsListView);
 
-            contactsListView.setAdapter(adapter);
-            contactsListView.setOnItemClickListener(this);
+            jobsListView.setAdapter(adapter);
+            jobsListView.setOnItemClickListener(this);
 
         }
 
         if(savedInstanceState != null){
-            for (Parcelable contact : savedInstanceState.getParcelableArrayList("contacts")){
-                contacts.add((Contact) contact);
+            for (Parcelable job : savedInstanceState.getParcelableArrayList("jobs")){
+                jobs.add((Job) job);
             }
-        } /*else {
-            //hardwired contacts for testing
-            contacts.add(new Contact("random Name", "email@place.com", "09856466"));
-            contacts.add(new Contact("cooler Name", "email@place.com", "09856466"));
-        }*/
 
-        contactRepository = new ContactRepository(this);
-        contactRepository.getAllContacts().observe(this, new Observer<List<Contact>>() {
+
+        jobRepository = new JobRepository(this);
+        jobRepository.getAllJobs().observe(this, new Observer<List<Job>>() {
             @Override
-            public void onChanged(List<Contact> updatedContacts) {
-// update the contacts list when the database changes
+            public void onChanged(List<Job> updatedJobs) {
+// update the jobs list when the database changes
                 adapter.clear();
-                adapter.addAll(updatedContacts);
+                adapter.addAll(updatedJobs);
             }
         });
 
     }
 
-    public void saveContact(View view){
+    public void saveJob(View view){
         String status;
         EditText nameField = findViewById(R.id.name);
         String name = nameField.getText().toString();
@@ -65,66 +61,62 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String email = emailField.getText().toString();
         EditText phoneField = findViewById(R.id.phone);
         String phone = phoneField.getText().toString();
-        Contact contact=new Contact(name,email,phone);
+        Job job=new Job(name,email,phone);
 
-        //see if contact is in the ArrayList
-        if (contacts.contains(contact)){
-            Contact existingContact = contacts.get(contacts.indexOf(contact));
-            contact.id = existingContact.id;
-            contactRepository.update(contact);
+        //see if job is in the ArrayList
+        if (jobs.contains(job)){
+            Job existingJob = job.get(jobs.indexOf(job));
+            job.id = existingJob.id;
+            jobRepository.update(job);
             status="Updated";
-//            contacts.set(contacts.indexOf(contact),contact);
         } else {
-            contactRepository.insert(contact);
+            jobRepository.insert(job);
             status="Saved";
-//            contacts.add(contact);
         }
 
         adapter.notifyDataSetChanged();
-        Toast.makeText(this,status + " contact details for \n" + contact.name + "\nEmail: " + contact.email + "\nMobile: " + contact.mobile,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,status + " job details for \n" + job.name + "\nEmail: " + job.email + "\nMobile: " + job.mobile,Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteContact(View view){
+    public void deleteJob(View view){
         EditText nameField = findViewById(R.id.name);
         String name = nameField.getText().toString();
         EditText emailField = findViewById(R.id.email);
         String email = emailField.getText().toString();
         EditText phoneField = findViewById(R.id.phone);
         String phone = phoneField.getText().toString();
-        Contact contact=new Contact(name,email,phone);
+        Job job=new Job(name,email,phone);
 
-        //see if contact is in the ArrayList
-        if (contacts.contains(contact)){
-            Contact existingContact = contacts.get(contacts.indexOf(contact));
-            contact.id = existingContact.id;
-            contactRepository.delete(contact);
-//            contacts.set(contacts.indexOf(contact),contact);
+        //see if job is in the ArrayList
+        if (jobs.contains(job)){
+            Job existingJob = jobs.get(jobs.indexOf(job));
+            job.id = existingJob.id;
+            jobRepository.delete(Job);
         } else {
-            contactRepository.insert(contact);
-//            contacts.add(contact);
+            jobRepository.insert(job);
         }
 
         adapter.notifyDataSetChanged();
-        Toast.makeText(this,"Deleted contact details for \n" + contact.name,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Deleted job details for \n" + job.name,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedState) {
-        savedState.putParcelableArrayList("contacts",contacts);
+        savedState.putParcelableArrayList("jobs",jobs);
         super.onSaveInstanceState(savedState);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Contact contact = (Contact) parent.getAdapter().getItem(position);
+        Job job = (Job) parent.getAdapter().getItem(position);
         EditText nameField = findViewById(R.id.name);
-        nameField.setText(contact.name);
+        nameField.setText(job.name);
         EditText emailField = findViewById(R.id.email);
-        emailField.setText(contact.email);
+        emailField.setText(job.email);
         EditText phoneField = findViewById(R.id.phone);
-        phoneField.setText(contact.mobile);
+        phoneField.setText(job.mobile);
 
-        Toast.makeText(parent.getContext(), "Clicked " + contact,
+        Toast.makeText(parent.getContext(), "Clicked " + job,
                 Toast.LENGTH_SHORT).show();
 
     }
