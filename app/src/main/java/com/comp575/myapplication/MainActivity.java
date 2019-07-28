@@ -87,8 +87,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String phone = phoneField.getText().toString();
         Job job=new Job(name,email,phone);
 
-        //see if job is in the ArrayList
-        if (jobs.contains(job)){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+ builder.setTitle("Confirm delete Job?!");
+ builder.setMessage("You are about to delete this job from your records. Do you really want to proceed?");
+ builder.setCancelable(false);
+ builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+     @Override
+     public void onClick(DialogInterface dialog, int which) {
+         if (jobs.contains(job)){
             Job existingJob = jobs.get(jobs.indexOf(job));
             job.id = existingJob.id;
             jobRepository.delete(Job);
@@ -98,6 +104,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         adapter.notifyDataSetChanged();
         Toast.makeText(this,"Deleted job details for \n" + job.name,Toast.LENGTH_SHORT).show();
+     }
+ });
+ 
+ builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+     @Override
+     public void onClick(DialogInterface dialog, int which) {
+         Toast.makeText(getApplicationContext(), "You've changed your mind to delete", Toast.LENGTH_SHORT).show();
+     }
+ });
+ 
+ builder.show();
+        
+        //see if job is in the ArrayList
+//         if (jobs.contains(job)){
+//             Job existingJob = jobs.get(jobs.indexOf(job));
+//             job.id = existingJob.id;
+//             jobRepository.delete(Job);
+//         } else {
+//             jobRepository.insert(job);
+//         }
+
+//         adapter.notifyDataSetChanged();
+//         Toast.makeText(this,"Deleted job details for \n" + job.name,Toast.LENGTH_SHORT).show();
     }
 
     @Override
